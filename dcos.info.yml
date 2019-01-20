@@ -1,0 +1,6 @@
+name: DisplayChildrenOrSiblings - AW
+description: Display current node children or siblings 
+package: AW
+
+type: module
+core: 8.x
