@@ -1,1 +1,24 @@
 <?php
+
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_alter
+ * Target all Menu editing (for sorting)
+ */
+function dcos_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+	if ( $form['#id'] == 'menu-edit-form') {
+    	$form['actions']['submit']['#submit'][] = 'dcos_form_submit';
+    }
+ 
+}
+
+
+/**
+ * Implements hook_form_submit()
+ */
+function dcos_form_submit(array $form, FormStateInterface $form_state){
+	//trigger invalidation of this module cache tags
+	\Drupal\Core\Cache\Cache::invalidateTags(array('dcos'));
+}
