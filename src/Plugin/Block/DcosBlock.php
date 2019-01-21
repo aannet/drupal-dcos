@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Block\BlockPluginInterface;
+use Drupal\Core\Cache;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Menu\MenuTreeParameters;
 use Drupal\Core\Routing\AdminContext;
@@ -205,7 +206,6 @@ class DcosBlock extends BlockBase implements BlockPluginInterface {
 	*/
 	public function build() {
 
-
 		$menuName = isset($this->configuration['dcos_block_menu_machine_name']) ? $this->configuration['dcos_block_menu_machine_name'] : null;
 		$menuViewmode = isset($this->configuration['dcos_block_contenttype_viewmode']) ? $this->configuration['dcos_block_contenttype_viewmode'] : null;
 
@@ -239,7 +239,6 @@ class DcosBlock extends BlockBase implements BlockPluginInterface {
 
 
 		$nids = $this->getNidsToDisplay();
-		
 	    if ( $nids) {
 
 	    	$block['content'] = '';
@@ -247,17 +246,23 @@ class DcosBlock extends BlockBase implements BlockPluginInterface {
 			$nodes = Node::loadMultiple($nids);
 			$display = node_view_multiple($nodes, $menuViewmode);
 
+			$cacheTags = 'nodes_'.implode($nids).'_'.$menuName.'_'.$menuViewmode;
+			
 			return array(
 				'content' => $display,
 			     '#cache' => array(
-			        'contexts' => array('url','url.query_args'),
 			        'max-age'  => 1000,
-			        'tags'     => array('nodes'.implode($nids).$menuName.$menuViewmode)
+			        'tags'     => array('dcos', $cacheTags)
 			       	)
 				  );
 	    }
 
 	    return $block;
 	}
+
+
+
+
+
 
 }
