@@ -207,7 +207,7 @@ class DcosBlock extends BlockBase implements BlockPluginInterface {
 
 
 		$menuName = isset($this->configuration['dcos_block_menu_machine_name']) ? $this->configuration['dcos_block_menu_machine_name'] : null;
-		$menuName = isset($this->configuration['dcos_block_contenttype_viewmode']) ? $this->configuration['dcos_block_contenttype_viewmode'] : null;
+		$menuViewmode = isset($this->configuration['dcos_block_contenttype_viewmode']) ? $this->configuration['dcos_block_contenttype_viewmode'] : null;
 
 
 		if ( !isset( $menuName ) || !isset($menuViewmode) ) {
