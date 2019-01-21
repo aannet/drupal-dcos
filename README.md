@@ -18,7 +18,7 @@ Placing a block on the content-type "Basic page" :
 
 ## USAGE
 
-* enable module
+* enable module (eventually rename root folder of the module `dcos` instead of `drupal-dcos`)
 * go to admin/structure/block
 * Place "Docs Block" in the right section
 	* Enter the menu machine-name you want to watch : ex 'main' or 'my-footer-menu'
